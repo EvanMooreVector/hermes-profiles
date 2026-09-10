@@ -8,7 +8,7 @@ description: >-
 compatibility: Hermes Agent
 metadata:
   tags: [research, gaps, recursion, evaluation]
-  spec-version: "1.0"
+  spec-version: "1.1"
 ---
 
 # Evaluate Gaps
@@ -47,12 +47,12 @@ Does pursuing this gap add a new dimension of understanding (depth), or does it 
 
 ### 4. Determine Recursion Intensity
 
-If you decide to recurse, choose the appropriate intensity:
+If you decide to recurse, choose the smallest sufficient path:
 
-- **Lightweight** (1-2 quick searches): `groktocrawl search "<specific query>" --limit 3`
-- **Targeted** (need one article or source): `groktocrawl scrape <url>`
-- **Full pass** (need significant new territory): `groktocrawl agent "<focused research prompt>"`
-- **Browser-needed** (JS-rendered content suspected): groktocrawl browser suite
+- **Lightweight:** one or two focused `web_search` queries, followed by `web_extract` for the selected source.
+- **Targeted:** `web_extract` a known canonical URL.
+- **Full pass:** multiple focused searches and independent extractions followed by synthesis.
+- **Browser-needed:** browser automation only when normal extraction fails or interaction is required.
 
 ### 5. Execute or Advance
 
@@ -68,10 +68,10 @@ If recursing: return to Phase 2 (Gather) with a focused mission for the specific
 <how it connects to Q2 — changes a conclusion>
 
 ## Suggested Approach
-<lightweight / targeted / full pass / browser>
+<lightweight / targeted / full pass / conditional browser>
 ```
 
-Save this as `/tmp/researcher-workflow/<mission-slug>/layer-3-detailed/gap-brief-<N>.md`.
+Save this as `<work-root>/layer-3-detailed/gap-brief-<N>.md`.
 
 After the recursion pass, evaluate gaps again. A second recursion cycle is acceptable. A third cycle requires strong justification — at that point, consider whether the scope itself was too broad.
 
@@ -79,8 +79,8 @@ If not recursing: proceed to Phase 4 (Build Pyramid).
 
 ## Transition Signals
 
-- **If recursing:** Return to Phase 2 (Gather) with the gap brief
-- **If stopping:** Proceed to Phase 4 (Build Pyramid) — all gathered material is in layer-3-detailed/
+- **If recursing:** Return to Phase 2 (Gather) with the gap brief.
+- **If stopping:** Proceed to Phase 4 (Build Pyramid) — all gathered material is in `<work-root>/layer-3-detailed/`.
 
 ## What to Save
 

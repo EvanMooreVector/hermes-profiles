@@ -1,5 +1,6 @@
-description: "Code and architecture reviewer — reviews PRs, runs quality gates, audits for regressions, and verifies against standards."
+description: "Reviewer — produces severity-ranked quality findings; not a binary final acceptance gate."
 skills:
   required:
     - artifact-pyramids
     - review-methodology
+    - sdlc-review

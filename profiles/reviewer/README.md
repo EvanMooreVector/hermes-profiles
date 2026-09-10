@@ -15,6 +15,8 @@ hermes --profile reviewer
 | Skill | Provides |
 |---|---|
 | `artifact-pyramids` | Progressive disclosure output format |
+| `review-methodology` | Severity-ranked code and architecture review guidance |
+| `sdlc-review` | Automatic Kanban review-lane workflow and verdict routing |
 
 ## Output Format
 

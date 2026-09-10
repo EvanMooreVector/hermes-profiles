@@ -1,44 +1,41 @@
 ---
 name: research-gather
 description: >-
-  Systematic multi-pass research gathering using the groktocrawl suite
-  exclusively. Prohibits web_search and web_extract tools. Follows a
-  deterministic fallback chain: agent → search → scrape → browser.
-  When dispatched as a subagent, run this skill to execute the research
-  phase of the researcher-workflow.
+  Systematic multi-pass research gathering with Hermes web tools. Uses
+  web_search for discovery and web_extract for selected pages and documents.
+  Browser automation is a conditional fallback when extraction fails or
+  interaction is required. When dispatched as a subagent, run this skill to
+  execute the research phase of the researcher-workflow.
 compatibility: Hermes Agent
 metadata:
-  tags: [research, gathering, groktocrawl, web-extraction]
-  spec-version: "1.0"
+  tags: [research, gathering, web-search, web-extraction, citations]
+  spec-version: "1.1"
 ---
 
 # Research Gather
 
 ## When to Use
 
-Load this skill after completing Phase 1 (Receive Mission) — the SCOPE.md document exists and the artifact directory is ready. This is the execution phase: turning the research questions into gathered material.
+Load this skill after completing Phase 1 (Receive Mission) — `<work-root>/SCOPE.md` exists and the artifact directory is ready. This is the execution phase: turning the research questions into gathered material.
 
-## TOOL PROHIBITION
+## Retrieval Defaults
 
-**DO NOT USE `web_search` or `web_extract` tools.** They are insufficient for systematic research and frequently broken. ALL web research must go through the groktocrawl suite:
+| Need | Default route |
+|------|---------------|
+| Source discovery | `web_search` with focused queries |
+| Page or document retrieval | `web_extract` on selected canonical URLs |
+| Independent source retrieval | Batch independent `web_extract` calls |
+| JS-heavy, blocked, or interactive source | Browser automation only after extraction fails or interaction is required |
 
-| Need | groktocrawl command | Why |
-|------|---------------------|-----|
-| Multi-source research + synthesis | `groktocrawl agent "<prompt>"` | Searches, scrapes, and synthesizes autonomously |
-| Web search for discovery | `groktocrawl search "<query>" --limit N --json` | Returns structured search results |
-| Single page content | `groktocrawl scrape <url>` | Clean markdown extraction |
-| JS-heavy / bot-protected pages | `groktocrawl browser` suite | Headless browser with JS rendering |
-| Binary files (PDFs, images) | `groktocrawl download <url>` | File download |
-| URL discovery on a site | `groktocrawl map <url>` | Breadth-first route discovery |
-| Site-wide extraction | `groktocrawl crawl <url>` | Recursive depth-first scraping |
+Do not treat search snippets as page evidence. Extract the selected source before relying on body-level claims.
 
 ## What to Do
 
 ### 1. Read the Scope
 
-Read `/tmp/researcher-workflow/<mission-slug>/SCOPE.md`. Understand the research questions, scope boundaries, and known unknowns.
+Read `<work-root>/SCOPE.md`. Understand the research questions, scope boundaries, and known unknowns.
 
-### 2. Load Research Methodology
+### 2. Load Research and Citation Methods
 
 If not already loaded, load the shared methodology references:
 
@@ -47,22 +44,32 @@ skill_view(name="research-methodology", file_path="references/source-evaluation.
 skill_view(name="research-methodology", file_path="references/synthesis-patterns.md")
 ```
 
-### 3. Execute First Research Pass
+For a source-backed deliverable, load:
 
-Use `groktocrawl agent` for the broadest coverage:
-
-```bash
-groktocrawl agent "Research the following: <reformulated questions from SCOPE.md>. Focus on: <domains from approach section>. Synthesize key findings, identify conflicting claims, and flag gaps."
+```
+skill_view(name="grounded-citations")
 ```
 
-Save the output to a timestamped research log:
+Register every source URL at retrieval time as that skill directs. Do not reconstruct URLs or citation identifiers from memory after drafting.
 
-```bash
-cat > /tmp/researcher-workflow/<mission-slug>/layer-3-detailed/01-gather-pass-1.md << 'EOF'
+### 3. Execute First Research Pass
+
+1. Run bounded `web_search` queries for each research question.
+2. Select authoritative primary sources and independent corroborating sources.
+3. Retrieve selected URLs with `web_extract`; batch independent extractions.
+4. If normal extraction is empty or incomplete, retry a canonical URL or narrower page. Use browser automation only when extraction still fails or the source requires interaction.
+5. Record unresolved access or coverage gaps instead of filling them with unsupported claims.
+
+Save a timestamped research log to `<work-root>/layer-3-detailed/01-gather-pass-1.md` with `write_file`:
+
+```markdown
 # Gather Pass 1: <date>
 
 ## Sources Consulted
-- <list URLs and what each provided>
+- <URL — what the retrieved source provided>
+
+## Concise Evidence
+- <claim — citation id and exact or faithfully paraphrased support>
 
 ## Key Findings
 - <findings organized by research question>
@@ -72,17 +79,16 @@ cat > /tmp/researcher-workflow/<mission-slug>/layer-3-detailed/01-gather-pass-1.
 
 ## Potential Gaps
 - <what seems missing or thin>
-EOF
 ```
 
 ### 4. Fill Specific Gaps (Targeted Follow-ups)
 
-For each identified gap, use the appropriate groktocrawl command:
+For each identified gap, use the smallest sufficient retrieval path:
 
-- **Light gap** (need a quick fact): `groktocrawl search "<specific query>" --limit 3`
-- **Medium gap** (need a single article): `groktocrawl scrape <url>`
-- **Deep gap** (need synthesis): `groktocrawl agent "<focused prompt>"`
-- **JS-rendered content**: groktocrawl browser suite
+- **Light gap:** one focused `web_search`, then extract the best source.
+- **Targeted gap:** `web_extract` a known canonical URL.
+- **Deep gap:** several focused searches and independent extractions, then synthesize.
+- **Extraction or interaction gap:** conditional browser automation.
 
 ### 5. Evaluate Source Quality
 
@@ -98,13 +104,14 @@ Flag low-quality sources in the research log. Do not discard them — note their
 ## Transition Signals
 
 Move to Phase 3 (Evaluate Gaps) when:
-- Initial pass is complete and saved to the artifact directory
-- At least one round of targeted follow-ups has been done
-- Gaps are documented in the research log
-- Source quality has been assessed
+- Initial pass is complete and saved to the artifact directory.
+- At least one round of targeted follow-ups has been done when needed.
+- Gaps are documented in the research log.
+- Source quality has been assessed.
+- Retrieved URLs and concise evidence are recorded.
 
 You may also transition if the initial pass clearly saturated the topic (no significant gaps remain).
 
 ## What to Save
 
-Each research pass should produce a dated file in `/tmp/researcher-workflow/<mission-slug>/layer-3-detailed/`. This builds the bottom layer of the pyramid — detailed dossiers of raw findings.
+Each research pass should produce a dated file in `<work-root>/layer-3-detailed/`. This builds the bottom layer of the pyramid: organized dossiers of source URLs, concise evidence, quality assessments, and findings rather than raw retrieval dumps.

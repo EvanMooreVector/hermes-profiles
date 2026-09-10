@@ -1,23 +1,14 @@
-# QA Engineer Profile — Agent Guidance
-
-## Trigger Patterns
-
-| User Says | What It Means |
-|---|---|
-| "Design a test strategy" | Test strategy: risk assessment → test levels → automation targets → quality gates |
-| "Set up test automation" | Framework selection, harness setup, CI integration, first test suite |
-| "Build a regression suite" | Regression selection criteria, suite structure, CI integration |
-| "This test is flaky" | Flaky test investigation: isolation, timing, state management |
-| "Design quality gates" | Gate strategy: pass/fail criteria, blocking vs advisory, escalation |
-| "Audit test coverage" | Coverage analysis: what's tested, what's missing, risk assessment |
+# Qa Engineer — Agent Guidance
 
 ## Loading Order
 
 ```python
-skill_view('artifact-pyramids')  # 1. Output format
-skill_view('qa-methodology')     # 2. Methodology
+skill_view('qa-methodology')
+skill_view('artifact-pyramids')
 ```
 
-## Output Contract
+## Output and Kanban Contract
 
-Artifact pyramid. Response is the absolute path to `00-index.md`.
+Use an artifact pyramid only for durable, multi-file deliverables or cross-agent handoffs. For direct questions, small edits, and single-file changes, return the result normally. Working code, tests, or the requested document remain the primary deliverable; an index must not substitute for them.
+
+When HERMES_KANBAN_TASK is present, the Kanban lifecycle overrides any "absolute path only" response rule. Work in the assigned workspace. Complete through kanban_complete with a concise summary, verification evidence, and durable artifact paths. Attach outputs that are not already in a shared directory or worktree. Never return only an ephemeral scratch path.

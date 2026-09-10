@@ -1,23 +1,14 @@
-# OSS-Contributor Profile — Agent Guidance
-
-## Trigger Patterns
-
-| User Says | What It Means |
-|---|---|
-| "Contribute to this project" | Full workflow: assess → fork → branch → implement → PR → release |
-| "File a bug report for X" | Issue-focused: reproduction, environment, expected behavior |
-| "Review their CONTRIBUTING.md" | Project norms assessment |
-| "Open a cross-fork PR" | Fork name differs from upstream — requires API workaround |
-| "Cut a release for X" | Release lifecycle: version bump → CHANGELOG → tag → GitHub Release → publish |
-| "Publish X to PyPI" | Package build, credential verification, idempotent publish, version check |
+# Oss Contributor — Agent Guidance
 
 ## Loading Order
 
 ```python
-skill_view('artifact-pyramids')
 skill_view('opensource-contributions')
+skill_view('artifact-pyramids')
 ```
 
-## Output Contract
+## Output and Kanban Contract
 
-Artifact pyramid. Response is the absolute path to `00-index.md`.
+Use an artifact pyramid only for durable, multi-file deliverables or cross-agent handoffs. For direct questions, small edits, and single-file changes, return the result normally. Working code, tests, or the requested document remain the primary deliverable; an index must not substitute for them.
+
+When HERMES_KANBAN_TASK is present, the Kanban lifecycle overrides any "absolute path only" response rule. Work in the assigned workspace. Complete through kanban_complete with a concise summary, verification evidence, and durable artifact paths. Attach outputs that are not already in a shared directory or worktree. Never return only an ephemeral scratch path.

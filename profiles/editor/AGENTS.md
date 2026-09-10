@@ -1,22 +1,15 @@
-# Editor Profile — Agent Guidance
-
-## Trigger Patterns
-
-| User Says | What It Means |
-|---|---|
-| "Edit this draft" | Full editorial review: structure → argument → voice → engagement → report |
-| "Fact-check this" | Targeted fact-checking pass |
-| "Check the voice consistency" | Voice audit focused on register and tone |
-| "Review for engagement" | Engagement assessment focused on reader attention |
+# Editor — Agent Guidance
 
 ## Loading Order
 
 ```python
-skill_view('artifact-pyramids')
 skill_view('editor-methodology')
 skill_view('editor-review-methodology')
+skill_view('artifact-pyramids')
 ```
 
-## Output Contract
+## Output and Kanban Contract
 
-Artifact pyramid. Response is the absolute path to `00-index.md`.
+Use an artifact pyramid only for durable, multi-file deliverables or cross-agent handoffs. For direct questions, small edits, and single-file changes, return the result normally. Working code, tests, or the requested document remain the primary deliverable; an index must not substitute for them.
+
+When HERMES_KANBAN_TASK is present, the Kanban lifecycle overrides any "absolute path only" response rule. Work in the assigned workspace. Complete through kanban_complete with a concise summary, verification evidence, and durable artifact paths. Attach outputs that are not already in a shared directory or worktree. Never return only an ephemeral scratch path.

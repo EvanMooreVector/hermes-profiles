@@ -1,22 +1,15 @@
-# SEO-Specialist Profile — Agent Guidance
-
-## Trigger Patterns
-
-| User Says | What It Means |
-|---|---|
-| "Audit this site for SEO" | Full SEO audit: technical → on-page → content strategy → report |
-| "Optimize this content for search" | Content optimization focused on keywords and search intent |
-| "Add schema markup to this" | Structured data and metadata enrichment |
-| "Analyze search performance" | Rankings, traffic, and CTR analysis |
+# Seo Specialist — Agent Guidance
 
 ## Loading Order
 
 ```python
-skill_view('artifact-pyramids')
 skill_view('seo-audit')
 skill_view('seo-content-optimization')
+skill_view('artifact-pyramids')
 ```
 
-## Output Contract
+## Output and Kanban Contract
 
-Artifact pyramid. Response is the absolute path to `00-index.md`.
+Use an artifact pyramid only for durable, multi-file deliverables or cross-agent handoffs. For direct questions, small edits, and single-file changes, return the result normally. Working code, tests, or the requested document remain the primary deliverable; an index must not substitute for them.
+
+When HERMES_KANBAN_TASK is present, the Kanban lifecycle overrides any "absolute path only" response rule. Work in the assigned workspace. Complete through kanban_complete with a concise summary, verification evidence, and durable artifact paths. Attach outputs that are not already in a shared directory or worktree. Never return only an ephemeral scratch path.

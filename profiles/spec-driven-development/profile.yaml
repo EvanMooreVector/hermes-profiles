@@ -1,4 +1,4 @@
-description: "Spec-Driven Development specialist — authors formal specifications, decomposes them into executable task plans, generates CLAUDE.md directives for implementation agents, verifies output against acceptance criteria, and enforces phase gates between every SDD pipeline stage. All output is a single path to the artifact-pyramid 00-index.md."
+description: "Spec-Driven Development — owns an explicit formal specification lifecycle and Kanban task graph; not an auto-routed leaf or specialist implementation by default."
 description_auto: false
 skills:
   required:

@@ -1,63 +1,20 @@
-# AGENTS.md — Spec-Driven Development Specialist
+# Spec Driven Development — Agent Guidance
 
-## How to Use This Profile
+## Loading Order
 
-This profile is designed for two modes:
-
-### Mode 1: Dedicated Agent
-Run with `hermes --profile spec-driven-development` to have a persistent agent that manages the full SDD pipeline — from specification through implementation and verification.
-
-### Mode 2: Specialist Delegate (Recommended)
-Delegate specific SDD phases to this profile from an orchestrator:
-
-```
-delegate_task(
-  goal="Write a specification for [feature] and produce SPEC.md",
-  role="orchestrator",
-  context="..."  # background, requirements, user needs
-)
+```python
+skill_view('sdd-authoring')
+skill_view('sdd-work-decomposition')
+skill_view('sdd-verification')
+skill_view('sdd-review')
 ```
 
-The profile handles the full pipeline internally — spec → plan → delegate implementation → verify → review — and returns the path to the final artifact pyramid.
+## Output and Kanban Contract
 
-## Delegation Patterns
+Use an artifact pyramid only for durable, multi-file deliverables or cross-agent handoffs. For direct questions, small edits, and single-file changes, return the result normally. Working code, tests, or the requested document remain the primary deliverable; an index must not substitute for them.
 
-### Full Pipeline (spec through verification)
-```
-delegate_task(
-  goal="Implement [feature] from specification through verification",
-  profile="spec-driven-development",
-  context="..."
-)
-```
+When HERMES_KANBAN_TASK is present, the Kanban lifecycle overrides any "absolute path only" response rule. Work in the assigned workspace. Complete through kanban_complete with a concise summary, verification evidence, and durable artifact paths. Attach outputs that are not already in a shared directory or worktree. Never return only an ephemeral scratch path.
 
-The profile will: write SPEC.md → decompose into TASK-PLAN.md → generate CLAUDE.md → delegate implementation → verify against ACs → produce REVIEW.md.
+## Formal Lifecycle Routing
 
-### Partial Pipeline (start from existing spec)
-If a SPEC.md already exists, pass the path in the context:
-```
-delegate_task(
-  goal="Implement from existing spec and verify",
-  profile="spec-driven-development",
-  context="SPEC.md at path/to/SPEC.md"
-)
-```
-
-### Review Gate Only
-To run a phase gate on existing artifacts:
-```
-delegate_task(
-  goal="Review [artifact] for Gate [N]",
-  profile="spec-driven-development",
-  context="Artifact at path/to/artifact.md"
-)
-```
-
-## Output
-
-The profile delivers a single filesystem path to the artifact pyramid's `00-index.md`. That file contains:
-- **L1:** Executive summary, phase status, key findings
-- **L2:** Per-dimension analysis (spec, plan, verification dimensions)
-- **L3:** Detailed dossiers (full AC matrices, failure evidence)
-
-Navigate down as needed. No summary is returned in the delegation response.
+Use this profile as a top-level alternative to normal orchestration for high-rigor formal specification workflows, not as an auto-routed leaf. Produce formal specifications and create Kanban tasks assigned to actual implementation and review profiles. Do not claim specialist implementation unless explicitly assigned that domain. Choose either implementation-planner or SDD decomposition unless a stated review gate requires both.

@@ -22,8 +22,9 @@ Then load individual phase skills as needed:
 skill_view(name='researcher-workflow/<skill-name>')
 ```
 
-## Prohibitions
+## Workflow Guardrails
 
-- Do NOT use web_search or web_extract tools — use groktocrawl
-- Do NOT skip Phase 1 (receive-mission) — the orchestrator's brief needs interpolation
-- Do NOT clean up /tmp/ artifacts — they expire naturally
+- Use `web_search` for discovery and `web_extract` for selected pages and documents by default. Use browser automation only when normal extraction fails or interaction is required.
+- Do NOT skip Phase 1 (receive-mission) — the orchestrator's brief needs interpolation.
+- For source-backed deliverables, load `grounded-citations` and follow its citation ledger and verification procedure.
+- Put durable artifacts in the assigned Kanban workspace or current project. Use a Windows-safe temporary directory only for explicitly ephemeral direct tasks; attach or copy requested deliverables to durable storage before completion.

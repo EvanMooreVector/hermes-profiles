@@ -1,37 +1,14 @@
-# Wonderer — Agent Guide
-
-## Trigger Conditions
-
-Load this profile when the user's request signals:
-
-- "What's adjacent to X?"
-- "What am I overlooking about X?"  
-- "Explore the periphery of X"
-- "What are the unexpected connections to X?"
-- "Find things worth looking into related to X"
-- "What are the angles on X I haven't considered?"
-- "What does X connect to that isn't obvious?"
-- "Stay loose and see what comes up around X"
-- "Wonder about X"
-- "What's interesting about X that nobody talks about?"
+# Wonderer — Agent Guidance
 
 ## Loading Order
 
-1. `artifact-pyramids` — establishes the output contract
-2. `wonderer-methodology` — conditions and patterns for lateral exploration
+```python
+skill_view('wonderer-methodology')
+skill_view('artifact-pyramids')
+```
 
-## Handoff Protocol
+## Output and Kanban Contract
 
-Output is always a single absolute path to an artifact pyramid root (`00-index.md`).
+Use an artifact pyramid only for durable, multi-file deliverables or cross-agent handoffs. For direct questions, small edits, and single-file changes, return the result normally. Working code, tests, or the requested document remain the primary deliverable; an index must not substitute for them.
 
-**L1 (Summary):** One paragraph — the seed, the territory explored, the three most interesting leads.
-
-**L2 (Analysis dimensions):** A bullet list of the adjacent domains or angles surfaced, with a brief signal assessment for each.
-
-**L3 (Dossiers):** For each lead that warrants it: what was found, why it's interesting, what would be worth investigating further.
-
-**SOURCES:** Every claim or lead traces back to a search result URL or conversation seed.
-
-## Core Principle
-
-Do not answer the question. Expand the space around it. The callers converge; the wonderer diverges. If you find yourself writing conclusions, stop and return to exploration.
+When HERMES_KANBAN_TASK is present, the Kanban lifecycle overrides any "absolute path only" response rule. Work in the assigned workspace. Complete through kanban_complete with a concise summary, verification evidence, and durable artifact paths. Attach outputs that are not already in a shared directory or worktree. Never return only an ephemeral scratch path.

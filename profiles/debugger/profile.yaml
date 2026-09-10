@@ -1,4 +1,4 @@
-description: "Systematic debugger — finds root causes before fixing. Expert in error investigation, reproduction, and test-driven debugging."
+description: "Debugger — diagnoses known, reproducible failure paths with evidence; not broad architecture review or final acceptance."
 skills:
   required:
     - artifact-pyramids

@@ -8,42 +8,39 @@ description: >-
 compatibility: Hermes Agent
 metadata:
   tags: [research, pyramid, artifacts, writing, synthesis]
-  spec-version: "1.0"
+  spec-version: "1.1"
 ---
 
 # Build Pyramid
 
 ## When to Use
 
-Load this skill after Phase 3 (Evaluate Gaps) indicates saturation. All gathered material is in `/tmp/researcher-workflow/<mission-slug>/layer-3-detailed/`. This phase transforms material into the progressive disclosure pyramid.
+Load this skill after Phase 3 (Evaluate Gaps) indicates saturation. All gathered material is in `<work-root>/layer-3-detailed/`. This phase transforms material into the progressive disclosure pyramid.
 
 ## Pyramid Structure
 
 ```
-layer-1-summary/
-└── README.md              ← Executive summary (single file, high-level)
-
-layer-2-analysis/
-├── 01-market-analysis.md   ← Thematic analysis files
-├── 02-risk-assessment.md   ← One per major theme
-├── 03-competitive-landscape.md
-└── ...
-
-layer-3-detailed/
-├── 01-gather-pass-1.md     ← Raw research logs
-├── 02-gather-pass-2.md     ← One per research pass
-├── gap-brief-1.md          ← Gap evaluation records
-├── source-quality-assessment.md
-└── ...
+<work-root>/
+├── layer-1-summary/
+│   └── README.md
+├── layer-2-analysis/
+│   ├── 01-market-analysis.md
+│   ├── 02-risk-assessment.md
+│   └── 03-competitive-landscape.md
+└── layer-3-detailed/
+    ├── 01-gather-pass-1.md
+    ├── 02-gather-pass-2.md
+    ├── gap-brief-1.md
+    └── source-quality-assessment.md
 ```
 
-The pyramid shape: narrow at the top (summary, dense), wide at the bottom (detailed, comprehensive).
+The pyramid shape is narrow at the top (summary, dense) and wide at the bottom (detailed, comprehensive).
 
 ## What to Do
 
 ### 1. Read All Gathered Material
 
-Read all files in `layer-3-detailed/` to understand the full body of findings.
+Read all files in `<work-root>/layer-3-detailed/` to understand the full body of findings.
 
 ### 2. Build Layer 3 — Detailed Dossiers (already populated)
 
@@ -64,15 +61,15 @@ The research logs from Phase 2 already live here. Review and organize them into 
 
 For each major theme from the research, write a focused analysis file. Each analysis file should:
 
-- State the claim or finding
-- Summarize the supporting evidence
-- Note conflicting evidence or uncertainty
-- Link to specific dossiers in layer 3 for detail
+- State the claim or finding.
+- Summarize the supporting evidence.
+- Note conflicting evidence or uncertainty.
+- Link to specific dossiers in layer 3 for detail.
 
-Link format (absolute path + description):
+Link format (absolute path plus description):
 
 ```
-See [/tmp/researcher-workflow/<mission-slug>/layer-3-detailed/01-gather-pass-1.md]
+See [<absolute-work-root>/layer-3-detailed/01-gather-pass-1.md]
 for the initial discovery that led to this finding.
 ```
 
@@ -87,8 +84,8 @@ Write a single README.md in `layer-1-summary/`. This is the most constrained fil
 <The single most important thing the PM needs to know>
 
 ## Key Findings
-- <Finding 1> → [See analysis](</analysis/01-market-analysis.md>)
-- <Finding 2> → [See analysis](</analysis/02-risk-assessment.md>)
+- <Finding 1> → [See analysis](<absolute-work-root>/layer-2-analysis/01-market-analysis.md)
+- <Finding 2> → [See analysis](<absolute-work-root>/layer-2-analysis/02-risk-assessment.md)
 
 Each finding links to the relevant analysis file with a brief description of what's there.
 
@@ -101,23 +98,26 @@ Each finding links to the relevant analysis file with a brief description of wha
 - <Items evaluated and set aside during gap evaluation>
 
 ## How to Dive Deeper
-- For market context and competitive landscape → load layer-2-analysis/
-- For full source logs and gap evaluations → load layer-3-detailed/
+- For thematic context → load `<work-root>/layer-2-analysis/`.
+- For source URLs, concise evidence, and gap evaluations → load `<work-root>/layer-3-detailed/`.
 ```
 
 ### 5. Ensure Links Work
 
-After writing all layers, verify that each cross-reference in layers 1 and 2 actually resolves to a file on disk. A broken link defeats progressive disclosure.
+After writing all layers, verify that each cross-reference actually resolves to a file on disk. A broken link defeats progressive disclosure.
+
+For source-backed deliverables, run the verification procedure from `grounded-citations` before delivery. Include source URLs and concise evidence; do not embed raw retrieval dumps.
 
 ## Transition Signals
 
 Proceed to Phase 5 (Deliver) when:
-- All three layers are written
-- Cross-reference links are verified
-- Files are organized with numbered prefixes and _index.md guides
+- All three layers are written.
+- Cross-reference links are verified.
+- Citation verification passes for source-backed files.
+- Files are organized with numbered prefixes and `_index.md` guides.
 
 ## Tool Use
 
-- Terminal for reading/synthesizing files
-- write_file for creating artifact files
-- No web research tools — you're building, not gathering
+- `read_file` and `search_files` for inspecting gathered artifacts.
+- `write_file` for creating artifact files.
+- No web research tools — you're building, not gathering.

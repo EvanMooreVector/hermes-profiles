@@ -1,4 +1,4 @@
-description: "Kanban flow strategist — diagnoses flow problems, designs board configurations, calibrates WIP limits, and sets up multi-portfolio operating models. Hermes-specific (uses Hermes kanban)."
+description: "Kanban strategist — analyzes board flow, WIP, and operating policies; not project planning or implementation."
 skills:
   required:
     - artifact-pyramids

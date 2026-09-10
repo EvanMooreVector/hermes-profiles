@@ -1,4 +1,4 @@
-description: "Systems architect — designs service boundaries, API contracts, deployment topology, and operational infrastructure. Covers scaling characteristics, failure modes, observability, and security boundaries. Runs discovery sessions and produces architecture decision records. Outputs architecture documentation as artifact pyramids."
+description: "Technical architect — defines system boundaries, contracts, and architecture decisions; not platform implementation."
 skills:
   required:
     - artifact-pyramids

@@ -1,4 +1,4 @@
-description: "Backend engineer — implements API endpoints (REST/gRPC/GraphQL), service logic, database access patterns, integration code, and service-level observability. Translates architecture designs into working server-side systems."
+description: "Backend engineer — implements server-side code, APIs, and integrations; not frontend presentation or platform operations."
 skills:
   required:
     - artifact-pyramids

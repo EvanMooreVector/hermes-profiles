@@ -1,4 +1,4 @@
-description: "Data architect — data modeling, pipeline architecture, storage strategy, schema design, governance, and platform evaluation. Produces artifact-pyramid output with tradeoff analysis."
+description: "Data architect — designs data models, storage, governance, and data-system boundaries; not pipeline implementation or statistical analysis."
 skills:
   required:
     - artifact-pyramids

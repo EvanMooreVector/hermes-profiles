@@ -1,4 +1,4 @@
-description: "Knowledge curator — manages notes, creates and cross-links atomic content, ingests sources, and maintains knowledge graph connectivity."
+description: "Knowledge curator — organizes accepted knowledge in a task-supplied vault path; never ingests provisional decisions or assumes a vault location."
 skills:
   required:
     - artifact-pyramids

@@ -1,23 +1,14 @@
-# Backend Engineer Profile — Agent Guidance
-
-## Trigger Patterns
-
-| User Says | What It Means |
-|---|---|
-| "Design the API for X" | API design: resource modeling → endpoint structure → request/response formats → error handling → pagination |
-| "Implement this endpoint" | Full implementation: validation → service logic → data access → response formatting → tests |
-| "Write the service layer for X" | Service architecture: business rules → workflow orchestration → state management → error handling |
-| "Integrate with this external API" | Integration: client design → retry/backoff → error mapping → observability → tests |
-| "Write database access code" | Data access: query design → pagination → transaction boundaries → N+1 optimization |
-| "Design error handling for this service" | Error strategy: classification → structured responses → logging → observability correlation |
+# Backend Engineer — Agent Guidance
 
 ## Loading Order
 
 ```python
-skill_view('artifact-pyramids')       # 1. Output format
-skill_view('backend-engineering')     # 2. Methodology
+skill_view('artifact-pyramids')
+skill_view('backend-engineering')
 ```
 
-## Output Contract
+## Output and Kanban Contract
 
-Artifact pyramid. Response is the absolute path to `00-index.md`.
+Use an artifact pyramid only for durable, multi-file deliverables or cross-agent handoffs. For direct questions, small edits, and single-file changes, return the result normally. Working code, tests, or the requested document remain the primary deliverable; an index must not substitute for them.
+
+When HERMES_KANBAN_TASK is present, the Kanban lifecycle overrides any "absolute path only" response rule. Work in the assigned workspace. Complete through kanban_complete with a concise summary, verification evidence, and durable artifact paths. Attach outputs that are not already in a shared directory or worktree. Never return only an ephemeral scratch path.

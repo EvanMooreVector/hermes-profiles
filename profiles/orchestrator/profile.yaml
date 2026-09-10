@@ -1,4 +1,4 @@
-description: "Orchestrator — decomposes complex questions into specialist workflows, routes work to the right profile in the right sequence, and synthesizes their outputs into coherent results. Owns the conversation structure, not the execution."
+description: "Orchestrator — control plane for decomposition, dependencies, routing, monitoring, and synthesis; not one-domain specialist execution."
 skills:
   required:
     - artifact-pyramids

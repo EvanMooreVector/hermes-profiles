@@ -1,21 +1,28 @@
 # Tool Governance for Researcher Subagents
 
-**ALL web research MUST use the groktocrawl suite. The built-in `web_search` and `web_extract` tools are explicitly prohibited.**
+Use Hermes built-in web tools as the normal retrieval path.
 
-| Need | Required tool |
+| Need | Default route |
 |------|---------------|
-| Multi-source research + synthesis | `groktocrawl agent "<prompt>"` |
-| Web search for discovery | `groktocrawl search "<query>" --limit N --json` |
-| Single page content | `groktocrawl scrape <url>` |
-| JS-heavy / bot-protected pages | groktocrawl browser suite |
-| Binary files (PDFs, images) | `groktocrawl download <url>` |
-| URL discovery on a site | `groktocrawl map <url>` |
-| Site-wide extraction | `groktocrawl crawl <url>` |
+| Discover relevant sources | `web_search` with focused queries and bounded result counts |
+| Retrieve a selected page or document | `web_extract` on the canonical URL |
+| Retrieve several independent sources | Batch independent `web_extract` calls, then synthesize |
+| JS-heavy, blocked, or interactive source | Browser automation, but only after normal extraction fails or interaction is required |
+| Local source or attachment | `read_file` or the appropriate document tool |
 
-**Fallback chain** (only when groktocrawl is genuinely unavailable):
-1. `curl` — plain-text endpoints only (`.md`, `.txt`, `.json`, `.yaml`)
-2. `web_extract` — last resort, known limitations
+## Retrieval Sequence
 
-**Why:** The built-in tools are insufficient for systematic research. They return empty results, hit CAPTCHA walls, and cannot handle JS-rendered content. Groktocrawl is self-hosted, handles anti-bot measures, and returns clean markdown.
+1. Frame the question and identify preferred primary-source domains.
+2. Use `web_search` to discover candidate URLs.
+3. Select authoritative and independent sources; use `web_extract` to read them.
+4. Register retrieved URLs with `grounded-citations` before drafting a source-backed deliverable.
+5. If extraction is empty or incomplete, retry the canonical URL or a more specific page.
+6. Use browser automation only when normal extraction still fails or the source requires interaction.
+7. Record unresolved coverage gaps rather than presenting unsupported claims.
 
-**What to do when you catch yourself reaching for web_search/web_extract:** Stop. Open a terminal and use the groktocrawl CLI instead. The extra step is worth the quality difference.
+## Evidence Rules
+
+- A search-result snippet supports only the text it contains. Extract the page before using body-level claims.
+- Prefer primary sources, and triangulate consequential claims with an independent source.
+- Include source URLs and concise supporting evidence in handoffs.
+- Do not forward raw search or extraction dumps downstream.

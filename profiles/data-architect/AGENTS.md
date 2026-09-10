@@ -1,43 +1,14 @@
-# Data-Architect Profile — Agent Guidance
-
-## Trigger Patterns
-
-| User Says | What It Means |
-|---|---|
-| "Design the data architecture for..." | Full engagement: landscape → modeling → pipeline → governance → pyramid |
-| "What database should we use?" | Platform evaluation: requirements → options → tradeoffs → ADR |
-| "Model this domain..." | Data modeling: entities → relationships → schema → volume estimates |
-| "How should we move this data?" | Pipeline design: source → transformation → destination → latency/cost |
+# Data Architect — Agent Guidance
 
 ## Loading Order
 
 ```python
-skill_view('artifact-pyramids')  # 1. Output format
+skill_view('data-architect')
+skill_view('artifact-pyramids')
 ```
 
-## Output Contract
+## Output and Kanban Contract
 
-Artifact pyramid. Response is the absolute path to `00-index.md`.
+Use an artifact pyramid only for durable, multi-file deliverables or cross-agent handoffs. For direct questions, small edits, and single-file changes, return the result normally. Working code, tests, or the requested document remain the primary deliverable; an index must not substitute for them.
 
-### Expected Structure
-
-```
-<project>/
-├── 00-index.md              ← Navigation + SOURCES
-├── 01-summary/
-│   ├── recommendations.md   ← Storage and pipeline recommendations
-│   └── tradeoffs.md         ← Key trade-offs and decisions
-├── 02-analysis/
-│   ├── data-landscape.md    ← Sources, volumes, consumers, constraints
-│   ├── storage-evaluation.md ← Platform comparison with criteria
-│   └── pipeline-design.md   ← Data flow, transformations, orchestration
-└── 03-dossiers/
-    ├── schema-drafts.md     ← Entity-relationship models, DDL sketches
-    └── compliance.md        ← Governance, quality, access control
-```
-
-## Handoff Protocol
-
-1. Close with the path to `00-index.md`. Do not summarize.
-2. Flag any assumptions about scale, volume, or team capability explicitly.
-3. If the data architecture reveals constraints that affect the systems architecture, notify the technical-architect profile.
+When HERMES_KANBAN_TASK is present, the Kanban lifecycle overrides any "absolute path only" response rule. Work in the assigned workspace. Complete through kanban_complete with a concise summary, verification evidence, and durable artifact paths. Attach outputs that are not already in a shared directory or worktree. Never return only an ephemeral scratch path.

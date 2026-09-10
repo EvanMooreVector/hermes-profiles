@@ -1,23 +1,14 @@
-# Frontend Engineer Profile — Agent Guidance
-
-## Trigger Patterns
-
-| User Says | What It Means |
-|---|---|
-| "Build a component for X" | Full component: props/state interface → implementation → accessibility → tests |
-| "Design the state management for X" | State architecture: state classification → data fetching → caching → optimization |
-| "Wire this to the API" | API integration: client setup → auth flow → data fetching → loading/error/empty states |
-| "Make this responsive" | Responsive implementation: layout system → breakpoints → cross-device testing |
-| "Optimize frontend performance" | Performance audit: bundle analysis → Core Web Vitals → code splitting → render optimization |
-| "Write frontend tests for X" | Test strategy: component tests → integration tests → visual regression → accessibility tests |
+# Frontend Engineer — Agent Guidance
 
 ## Loading Order
 
 ```python
-skill_view('artifact-pyramids')        # 1. Output format
-skill_view('frontend-engineering')     # 2. Methodology
+skill_view('artifact-pyramids')
+skill_view('frontend-engineering')
 ```
 
-## Output Contract
+## Output and Kanban Contract
 
-Artifact pyramid. Response is the absolute path to `00-index.md`.
+Use an artifact pyramid only for durable, multi-file deliverables or cross-agent handoffs. For direct questions, small edits, and single-file changes, return the result normally. Working code, tests, or the requested document remain the primary deliverable; an index must not substitute for them.
+
+When HERMES_KANBAN_TASK is present, the Kanban lifecycle overrides any "absolute path only" response rule. Work in the assigned workspace. Complete through kanban_complete with a concise summary, verification evidence, and durable artifact paths. Attach outputs that are not already in a shared directory or worktree. Never return only an ephemeral scratch path.

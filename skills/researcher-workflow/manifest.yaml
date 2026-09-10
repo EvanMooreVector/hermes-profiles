@@ -11,7 +11,7 @@ skills:
       context: Orchestrator dispatches a research mission
       description: >-
         Entry point. Reformulates the orchestrator's brief into explicit
-        research questions, scope boundaries, and depth targets.
+        research questions, scope boundaries, depth targets, and a work root.
 
   - name: research-gather
     file: skills/research-gather.md
@@ -19,8 +19,8 @@ skills:
       type: context
       context: After scope document exists
       description: >-
-        Executes multi-pass research using groktocrawl suite exclusively.
-        Prohibits web_search and web_extract tools.
+        Executes multi-pass research using web_search for discovery and
+        web_extract for retrieval. Browser automation is a conditional fallback.
 
   - name: evaluate-gaps
     file: skills/evaluate-gaps.md
@@ -37,8 +37,8 @@ skills:
       type: context
       context: After gap evaluation indicates saturation
       description: >-
-        Assembles progressive disclosure artifact files in /tmp/ with
-        three layers: summary, analysis collection, detailed dossiers.
+        Assembles progressive disclosure artifact files in the resolved
+        work root with summary, analysis collection, and detailed dossiers.
 
   - name: deliver-findings
     file: skills/deliver-findings.md
@@ -46,5 +46,5 @@ skills:
       type: context
       context: After pyramid assembly is complete
       description: >-
-        Reports back with absolute path references and descriptions of
-        what each layer contains.
+        Reports back with absolute path references, source URLs, concise
+        evidence, and descriptions of what each layer contains.
